@@ -12,6 +12,7 @@ devRequirements = [
     "setuptools",
     "wheel",
     "twine",
+    "bumpversion"
 ]
 
 setuptools.setup(
