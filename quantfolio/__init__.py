@@ -1,1 +1,1 @@
-name = "example_pkg"
+from .Portfolio import *

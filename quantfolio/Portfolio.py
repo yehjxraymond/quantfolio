@@ -7,11 +7,6 @@ import backtrader as bt
 import backtrader.analyzers as btanalyzers
 
 # TODO Portfolio plotter
-"""
-- covariance/correlation
-sdfs
-sdf
-"""
 # TODO Move backtester to it's own module
 # TODO Value at risk calculations
 
@@ -28,18 +23,6 @@ def forwardFillPrices(df):
 def preprocessData(df):
     funcToApply = [removeNonTradingDays, forwardFillPrices]
     return reduce(lambda o, func: func(o), funcToApply, df)
-
-
-def testRemoveNonTradingDays():
-    data = pd.read_csv("./test/USDSGD.csv", index_col="Date", parse_dates=True)
-    assert data.index.contains("2009-11-15")
-    assert not removeNonTradingDays(data).index.contains("2009-11-15")
-
-
-def testForwardFillPrices():
-    data = pd.read_csv("./test/USDSGD.csv", index_col="Date", parse_dates=True)
-    assert math.isnan(data.loc["2009-11-12"]["Open"])
-    assert not math.isnan(forwardFillPrices(data).loc["2009-11-12"]["Open"])
 
 
 class RebalanceStrategy(bt.Strategy):
@@ -77,9 +60,6 @@ class RebalanceStrategy(bt.Strategy):
             self.datetime.date() - self.lastRebalanced
         ).days > self.params.rebalancePeriod and self.params.rebalance:
             self.rebalance()
-        # Access -1, because drawdown[0] will be calculated after "next"
-        # print("DrawDown: %.2f" % self.stats.drawdown.drawdown[-1])
-        # print("MaxDrawDown: %.2f" % self.stats.drawdown.maxdrawdown[-1])
 
 
 class Portfolio:
@@ -111,7 +91,11 @@ class Portfolio:
     def portfolioPerformance(self, weights, interval=None):
         rets = self.portfolioReturns(weights, interval)
         var = self.portfolioVariance(weights, interval)
-        return {"returns": rets, "variance": var, "sharpe": (rets - self.rf) / math.sqrt(var)}
+        return {
+            "returns": rets,
+            "variance": var,
+            "sharpe": (rets - self.rf) / math.sqrt(var),
+        }
 
     def returnsDataframeExist(self):
         if not isinstance(self.assetReturnsDf, pd.DataFrame):

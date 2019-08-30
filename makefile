@@ -1,4 +1,4 @@
-.PHONY: all generate clean build install_requirements install_dev_requirements distribute setup_distribute_env
+.PHONY: all generate clean build install_requirements install_dev_requirements distribute setup_distribute_env test test_watch
 
 all: install_dev_requirements
 
@@ -27,3 +27,9 @@ setup_distribute_env:
 	@echo "[pypi]" > ~/.pypirc
 	@echo "username = ${PYPI_USERNAME}" >> ~/.pypirc
 	@echo "password = ${PYPI_PASSWORD}" >> ~/.pypirc
+
+test:
+	pytest . -s
+
+test_watch:
+	ptw tests -- -s
