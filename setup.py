@@ -3,7 +3,14 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-requirements = ["numpy", "pandas"]
+requirements = [
+    "numpy",
+    "pandas",
+    "backtrader",
+    "matplotlib",
+    "bayesian-optimization",
+    "scipy",
+]
 
 devRequirements = [
     "pytest",
@@ -12,7 +19,7 @@ devRequirements = [
     "setuptools",
     "wheel",
     "twine",
-    "bumpversion"
+    "bumpversion",
 ]
 
 setuptools.setup(

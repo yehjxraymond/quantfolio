@@ -93,11 +93,11 @@ def testPortfolioReturns():
     assert p.portfolioReturns([0.5, 0.5]) == -0.2504711195035464
 
 
-def testPortfolioVariance():
+def testPortfolioStd():
     p = Portfolio()
     p.addAsset(cwd + "/fixtures/Asset.csv", "Asset1")
     p.addAsset(cwd + "/fixtures/Asset2.csv", "Asset2")
-    assert p.portfolioVariance([0.5, 0.5]) == 0.0037867597178967947
+    assert p.portfolioStd([0.5, 0.5]) == 0.061536653450580125
 
 
 def testPortfolioPerformance():
@@ -107,7 +107,7 @@ def testPortfolioPerformance():
     perf = p.portfolioPerformance([0.5, 0.5])
     assert perf == {
         "returns": -0.2504711195035464,
-        "variance": 0.0037867597178967947,
+        "std": 0.061536653450580125,
         "sharpe": -4.070275282433077,
     }
 

@@ -1,6 +1,5 @@
-import math
 from . import OptimisationResults
-from .utils import randomWeight, expectedPortfolioRet, expectedPortfolioVar
+from .utils import randomWeight, expectedPortfolioRet, expectedPortfolioStd
 
 # Monte Carlo Optimizer using statistical model of the returns distribution
 def monteCarloStatsOptimizer(portfolio, interval=None, **kwargs):
@@ -15,8 +14,7 @@ def monteCarloStatsOptimizer(portfolio, interval=None, **kwargs):
         results = dict(zip(portfolio.assetNames, randWeights))
 
         ret = expectedPortfolioRet(portfolio.assetReturnsDf, randWeights)
-        var = expectedPortfolioVar(portfolio.assetReturnsDf, randWeights)
-        std = math.sqrt(var)
+        std = expectedPortfolioStd(portfolio.assetReturnsDf, randWeights)
         sharpe = (ret - portfolio.rf) / std
 
         results["Sharpe"] = sharpe
