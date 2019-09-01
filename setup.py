@@ -17,7 +17,7 @@ devRequirements = [
 
 setuptools.setup(
     name="quantfolio",
-    version="0.3.0",
+    version="0.3.1",
     author="Raymond Yeh",
     author_email="ray@geek.sg",
     description="A small example package",
