@@ -29,7 +29,7 @@ setup_distribute_env:
 	@echo "password = ${PYPI_PASSWORD}" >> ~/.pypirc
 
 test:
-	pytest . -s
+	@pipenv run pytest . -s
 
 test_watch:
 	ptw tests -- -s
