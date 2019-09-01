@@ -9,7 +9,7 @@ install_requirements:
 
 install_dev_requirements:
 	@echo "Installing dev requirements..."
-	@pip install pipenv
+	@pip install pipenv pytest
 	@pipenv install -e .[dev]
 
 build: clean
