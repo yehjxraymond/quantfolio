@@ -12,7 +12,7 @@ def slsqpStatsOptimizer(portfolio, interval=None, **kwargs):
         performance = portfolio.portfolioPerformance(weights)
 
         results["Sharpe"] = performance["sharpe"]
-        results["Std"] = math.sqrt(performance["variance"])
+        results["Std"] = performance["std"]
         results["Returns"] = performance["returns"]
         optResults.addData(results)
         return -performance["sharpe"]

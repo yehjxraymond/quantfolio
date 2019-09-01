@@ -23,4 +23,3 @@ def test_monte_carlo_stats_optimizer():
     assert "IWDA" in optimisedWeights
 
     assert results.results.shape[0] == 50
-

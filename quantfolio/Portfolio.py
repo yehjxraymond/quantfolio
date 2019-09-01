@@ -79,23 +79,22 @@ class Portfolio:
         fromDate, toDate = interval
         return np.sum(self.assetReturnsDf[fromDate:toDate].mean() * weights) * 252
 
-    def portfolioVariance(self, weights, interval=None):
+    def portfolioStd(self, weights, interval=None):
         self.returnsDataframeExist()
         if interval == None:
             interval = self.commonInterval()
         fromDate, toDate = interval
-        return np.dot(
-            weights, np.dot(self.assetReturnsDf[fromDate:toDate].cov() * 252, weights)
+        return np.sqrt(
+            np.dot(
+                weights,
+                np.dot(self.assetReturnsDf[fromDate:toDate].cov() * 252, weights),
+            )
         )
 
     def portfolioPerformance(self, weights, interval=None):
         rets = self.portfolioReturns(weights, interval)
-        var = self.portfolioVariance(weights, interval)
-        return {
-            "returns": rets,
-            "variance": var,
-            "sharpe": (rets - self.rf) / math.sqrt(var),
-        }
+        std = self.portfolioStd(weights, interval)
+        return {"returns": rets, "std": std, "sharpe": (rets - self.rf) / std}
 
     def returnsDataframeExist(self):
         if not isinstance(self.assetReturnsDf, pd.DataFrame):
